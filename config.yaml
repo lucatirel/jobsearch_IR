@@ -1,0 +1,125 @@
+profile:
+  candidate_name: "Aurora Olivola"
+  preferred_locations:
+    high: ["Rome", "Roma", "Remote", "Hybrid", "Italy", "Italia"]
+    medium: ["Milan", "Milano", "Brussels", "Bruxelles"]
+  target_roles:
+    - policy assistant
+    - junior policy officer
+    - advocacy assistant
+    - junior advocacy officer
+    - humanitarian advocacy
+    - humanitarian policy
+    - programme assistant
+    - junior programme officer
+    - project assistant
+    - junior project officer
+    - international programmes
+    - external relations assistant
+    - EU affairs assistant
+    - research assistant
+    - grants assistant
+    - reporting assistant
+    - MEAL assistant
+    - child rights
+    - child protection
+    - migration
+    - refugee support
+    - humanitarian affairs
+    - international cooperation
+    - public affairs international
+  strong_organisations:
+    - Save the Children
+    - Oxfam
+    - International Rescue Committee
+    - IRC
+    - Norwegian Refugee Council
+    - NRC
+    - Danish Refugee Council
+    - DRC
+    - INTERSOS
+    - COOPI
+    - WeWorld
+    - Cesvi
+    - Emergency
+    - MSF
+    - ActionAid
+    - Amnesty International
+    - Terre des Hommes
+    - AVSI
+    - Plan International
+    - FAO
+    - WFP
+    - IFAD
+    - UNHCR
+    - UNICEF
+    - IOM
+    - UNDP
+    - UNESCO
+    - OSCE
+    - OECD
+    - Council of Europe
+    - IAI
+    - ISPI
+    - CeSPI
+    - ECFR
+    - Aspen Institute Italia
+    - Fondazione Med-Or
+
+scoring:
+  location_high: 3
+  location_medium: 2
+  strong_org: 3
+  role_keyword: 3
+  english_italian: 2
+  french_plus: 1
+  too_senior: -3
+  generic_fundraising_or_comms: -2
+  incompatible_location: -3
+  unpaid_internship: -2
+  min_report_score: 4
+  priority_a_score: 8
+  priority_b_score: 5
+
+sources:
+  reliefweb:
+    enabled: true
+    appname: "aurora-job-monitor"
+    url: "https://api.reliefweb.int/v2/jobs"
+    limit: 100
+    query: "policy OR advocacy OR humanitarian OR programme OR project OR grants OR reporting OR research OR migration OR child protection OR child rights OR external relations OR EU affairs"
+  rss:
+    enabled: true
+    feeds:
+      # UN Careers has an RSS/job feed endpoint; add specific feeds here if browser access is available.
+      - name: "UN Careers Job Feed"
+        url: "https://careers.un.org/jobfeed?isPage=true"
+      # Add official RSS feeds from NGOs/think tanks where available.
+  html_public_pages:
+    enabled: true
+    polite_delay_seconds: 2
+    pages:
+      - name: "EuroBrussels homepage"
+        url: "https://www.eurobrussels.com/"
+        link_selector: "a"
+      - name: "Impactpool Italy public page"
+        url: "https://www.impactpool.org/countries/Italy"
+        link_selector: "a"
+
+notifications:
+  email:
+    enabled: false
+    smtp_host: "smtp.gmail.com"
+    smtp_port: 587
+    username_env: "AURORA_JOB_EMAIL_USER"
+    password_env: "AURORA_JOB_EMAIL_PASS"
+    to: ""
+  telegram:
+    enabled: false
+    bot_token_env: "AURORA_TELEGRAM_BOT_TOKEN"
+    chat_id_env: "AURORA_TELEGRAM_CHAT_ID"
+
+output:
+  sqlite_path: "job_monitor.sqlite3"
+  csv_path: "reports/latest_jobs.csv"
+  markdown_path: "reports/latest_report.md"
